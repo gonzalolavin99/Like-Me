@@ -40,17 +40,17 @@ app.post("/posts", async (req, res) => {
   }
 });
 
-app.delete('/posts/:id', async (req, res) =>{
-  const id=req.params.id;
-  try{
-    const posts = await remove(id);
-    if(!posts){
-      return res.status(404).json({message:"No se encontró el post"});
+// app.delete('/posts/:id', async (req, res) =>{
+//   const id=req.params.id;
+//   try{
+//     const posts = await remove(id);
+//     if(!posts){
+//       return res.status(404).json({message:"No se encontró el post"});
       
-    }
-    return res.json({message:"Post eliminado con éxito"});
-  }catch(error){
-    console.log(error);
-    return res.status(500).json({message:'Server Error'});
-  }
-})
+//     }
+//     return res.json({message:"Post eliminado con éxito"});
+//   }catch(error){
+//     console.log(error);
+//     return res.status(500).json({message:'Server Error'});
+//   }
+// })
