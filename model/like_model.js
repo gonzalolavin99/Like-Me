@@ -16,10 +16,11 @@ const create = async (titulo, url,descripcion) => {
   return rows[0];
 };
 
-// const remove = async (id) =>{
-// const query = "DELETE FROM posts WHERE id=$1";
-// const {rows} = await pool.query(query, [id]);
-// return rows[0];
-// }
+const remove = async (id) =>{
+const query = "DELETE FROM posts WHERE id=$1";
+const params = [id];
+const {rowCount} = await pool.query(query, params);
+return rowCount;
+}
 
-module.exports = { findAll, create, };
+module.exports = { findAll, create,remove };

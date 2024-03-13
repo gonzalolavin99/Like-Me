@@ -29,10 +29,8 @@ app.get("/posts", async (req, res) => {
 app.post("/posts", async (req, res) => {
   try {
     const { titulo, url, descripcion } = req.body;
-   
-    const posts = await create(titulo,
-      url,
-      descripcion);
+
+    const posts = await create(titulo, url, descripcion);
     res.status(200).json({ message: "Post  ingresado con  éxito" });
   } catch (error) {
     console.log("Error al crear un post", error);
@@ -40,17 +38,17 @@ app.post("/posts", async (req, res) => {
   }
 });
 
-// app.delete('/posts/:id', async (req, res) =>{
-//   const id=req.params.id;
-//   try{
-//     const posts = await remove(id);
-//     if(!posts){
-//       return res.status(404).json({message:"No se encontró el post"});
-      
-//     }
-//     return res.json({message:"Post eliminado con éxito"});
-//   }catch(error){
-//     console.log(error);
-//     return res.status(500).json({message:'Server Error'});
-//   }
-// })
+app.delete("/posts/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const posts = await remove(id);
+    if (!posts) {
+      return res.status(404).json({ message: "No se encontró el post" });
+    }
+    return res.json({ message: "Post eliminado con éxito" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Server Error" });
+  }
+});
