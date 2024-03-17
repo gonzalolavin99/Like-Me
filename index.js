@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const { pool } = require("./database/connection.js");
-const { findAll, create, remove } = require("./model/like_model.js");
+const { findAll, create, remove,updatePost } = require("./model/like_model.js");
 
 app.use(cors());
 app.use(express.json());
@@ -50,5 +50,16 @@ app.delete("/posts/:id", async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Server Error" });
+  }
+});
+
+app.put("/posts/like/:id", async(req,res)=>{
+  try{
+    const { id } = req.params; // Obtener solo el ID de req.params
+    await updatePost(id); // Pasar solo el ID a la función updatePost
+    res.send("Like!");
+  }catch(error){
+    console.log(error);
+    return res.status(500).json({message:"Internal server error"});
   }
 });
